@@ -6,3 +6,6 @@ In this API I've used:
   4. I use Data Annotation to apply properties to entities
   5. I've applied Get, Post, Put and Delete methods that works.
   6. Applied filters for optimization.
+If you want to use this project as example:
+  Go first to appsettings.json and add your MySQL server ip, database, root user and pwd.
+  Feel free to use it. :)
