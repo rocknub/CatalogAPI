@@ -10,27 +10,29 @@ namespace CatalogAPI.Controllers
     [ApiController]
     public class CategoriaController : ControllerBase
     {
-        private readonly CatalogDbContext _context;
+        private readonly CatalogDbContext? _context;
 
         public CategoriaController(CatalogDbContext context)
         {
             _context = context;
         }
 
-        [HttpGet("produtos")]
-        public ActionResult<IEnumerable<Categoria>> GetCategoriasProdutos()
+        [HttpGet("listarCategoriasEProdutos/{filtroQuantidade:int}")]
+        public ActionResult<IEnumerable<Categoria>> GetCategoriasProdutos(int filtroQuantidade)
         {
-            return _context.Categorias.Include(p => p.Produtos).ToList();
+            //return _context.Categorias.Include(p => p.Produtos).ToList();
+            return _context.Categorias.Include(p => p.Produtos).Where(c => c.CategoriaId <= filtroQuantidade).ToList();
         }
 
 
-        [HttpGet]
-        public ActionResult<IEnumerable<Categoria>> Get()
+        [HttpGet("listarApenasCategoria")]
+        public ActionResult<IEnumerable<Categoria>> GetOptimized()
         {
-            return _context.Categorias.ToList();
+            //AsNoTracking() apenas para consultar que apenas leem sem alterar os dados - logo menos consumo na memoria.
+            return _context.Categorias.AsNoTracking().ToList();
         }
 
-        [HttpGet("{id:int}", Name="ObterCategoria")]
+        [HttpGet("categoriaEspecifica/{id:int}", Name="ObterCategoria")]
         public ActionResult<Categoria> Get(int id)
         {
             var categoria = _context.Categorias.FirstOrDefault(c => c.CategoriaId == id);

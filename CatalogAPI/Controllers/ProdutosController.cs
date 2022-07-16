@@ -17,18 +17,26 @@ namespace CatalogAPI.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public ActionResult<IEnumerable<Produto>> Get()
+        [HttpGet("produtoFiltro/{filtroQuantidade:int}")]
+        public ActionResult<IEnumerable<Produto>> GetFilter(int filtroQuantidade)
         {
-            var produtos = _context.Produtos.ToList();
-            if (produtos is null)
+            if (filtroQuantidade is int)
             {
-                return NotFound("Produtos não encontrado.");
+                var produtos = _context.Produtos.Take(filtroQuantidade).ToList();
+
+                if (produtos is null)
+                {
+                    return NotFound("Produtos não encontrado.");
+                }
+                return produtos;
             }
-            return produtos;
+            else
+            {
+                return BadRequest("Por favor digite um numero inteiro sem usar nenhum ponto ou vírgula.");
+            }
         }
 
-        [HttpGet("{id:int}", Name="ObterProduto")]
+        [HttpGet("produtoSemFiltro/{id:int}", Name="ObterProduto")]
         public ActionResult<Produto> Get(int id)
         {
             var produto = _context.Produtos.FirstOrDefault(p => p.ProdutoId == id);
