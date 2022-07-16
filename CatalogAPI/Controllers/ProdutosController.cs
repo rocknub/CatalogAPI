@@ -17,7 +17,23 @@ namespace CatalogAPI.Controllers
             _context = context;
         }
 
-        [HttpGet("produtoFiltro/{filtroQuantidade:int}")]
+        [HttpGet("get/listarTProdutos")]
+        public ActionResult<IEnumerable<Produto>> GetOptimized()
+        {
+            try
+            {
+                return _context.Produtos.AsNoTracking().ToList();
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um problema com o servidor ao tratar sua solicitação. " +
+                    "Tente novamente em alguns minutos, caso erro persista contate a TI.");
+            }
+            //AsNoTracking() apenas para consultar que apenas leem sem alterar os dados - logo menos consumo na memoria.
+        }
+
+        [HttpGet("get/listarProduto/qualQuantidade/{filtroQuantidade:int}")]
         public ActionResult<IEnumerable<Produto>> GetFilter(int filtroQuantidade)
         {
             if (filtroQuantidade is int)
@@ -36,7 +52,7 @@ namespace CatalogAPI.Controllers
             }
         }
 
-        [HttpGet("produtoSemFiltro/{id:int}", Name="ObterProduto")]
+        [HttpGet("get/listarProduto/produtoEspecifico/{id:int}", Name="ObterProduto")]
         public ActionResult<Produto> Get(int id)
         {
             var produto = _context.Produtos.FirstOrDefault(p => p.ProdutoId == id);
@@ -48,7 +64,7 @@ namespace CatalogAPI.Controllers
             return produto;
         }
 
-        [HttpPost]
+        [HttpPost("post/")]
         public ActionResult Post(Produto produto)
         {
             if (produto is null)
@@ -61,7 +77,7 @@ namespace CatalogAPI.Controllers
                 new { id = produto.ProdutoId }, produto);
         }
 
-        [HttpPut("{id:int}")]
+        [HttpPut("put/{id:int}")]
         public ActionResult Put(int id, Produto produto)
         {
             if (id != produto.ProdutoId)
@@ -75,7 +91,7 @@ namespace CatalogAPI.Controllers
             return Ok(produto);
         }
 
-        [HttpDelete("{id:int}")]
+        [HttpDelete("delete/{id:int}")]
         public ActionResult Delete(int id)
         {
             var produto = _context.Produtos.FirstOrDefault(p => p.ProdutoId == id);

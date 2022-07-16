@@ -17,7 +17,7 @@ namespace CatalogAPI.Controllers
             _context = context;
         }
 
-        [HttpGet("listarCategoriasEProdutos/{filtroQuantidade:int}")]
+        [HttpGet("get/listarTodasCategoriasEProdutos/{filtroQuantidade:int}")]
         public ActionResult<IEnumerable<Categoria>> GetCategoriasProdutos(int filtroQuantidade)
         {
             //return _context.Categorias.Include(p => p.Produtos).ToList();
@@ -25,7 +25,7 @@ namespace CatalogAPI.Controllers
         }
 
 
-        [HttpGet("listarApenasCategoria")]
+        [HttpGet("get/listarTodasAsCategorias/")]
         public ActionResult<IEnumerable<Categoria>> GetOptimized()
         {
             try
@@ -41,7 +41,7 @@ namespace CatalogAPI.Controllers
             //AsNoTracking() apenas para consultar que apenas leem sem alterar os dados - logo menos consumo na memoria.
         }
 
-        [HttpGet("categoriaEspecifica/{id:int}", Name="ObterCategoria")]
+        [HttpGet("get/listarCategoriaEspecifica/{id:int}", Name="ObterCategoria")]
         public ActionResult<Categoria> Get(int id)
         {
             var categoria = _context.Categorias.FirstOrDefault(c => c.CategoriaId == id);
@@ -54,7 +54,7 @@ namespace CatalogAPI.Controllers
             return Ok(categoria);
         }
 
-        [HttpPost]
+        [HttpPost("post/")]
         public ActionResult Post(Categoria categoria)
         {
             if (categoria is null)
@@ -67,7 +67,7 @@ namespace CatalogAPI.Controllers
                 new { id = categoria.CategoriaId }, categoria);
         }
 
-        [HttpPut("{id:int}")]
+        [HttpPut("put/{id:int}")]
         public ActionResult Put(int id, Categoria categoria)
         {
             if (id != categoria.CategoriaId)
@@ -78,7 +78,7 @@ namespace CatalogAPI.Controllers
             return Ok(categoria);
         }
 
-        [HttpDelete("{id:int}")]
+        [HttpDelete("delete/{id:int}")]
         public ActionResult<Categoria> Delete(int id)
         {
             var categoria = _context.Categorias.FirstOrDefault(c => c.CategoriaId == id);
