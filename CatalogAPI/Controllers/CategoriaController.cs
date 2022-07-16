@@ -28,8 +28,17 @@ namespace CatalogAPI.Controllers
         [HttpGet("listarApenasCategoria")]
         public ActionResult<IEnumerable<Categoria>> GetOptimized()
         {
+            try
+            {
+                return _context.Categorias.AsNoTracking().ToList();
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um problema com o servidor ao tratar sua solicitação. " +
+                    "Tente novamente em alguns minutos, caso erro persista contate a TI.");
+            }
             //AsNoTracking() apenas para consultar que apenas leem sem alterar os dados - logo menos consumo na memoria.
-            return _context.Categorias.AsNoTracking().ToList();
         }
 
         [HttpGet("categoriaEspecifica/{id:int}", Name="ObterCategoria")]
