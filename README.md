@@ -4,4 +4,5 @@ In this API I've used:
   2. I use EF Core to manipulate the Db(MySQL).
   3. I use Migrations to update the Db.
   4. I use Data Annotation to apply properties to entities
-  5. And I've applied Get, Post, Put and Delete methods that works.
+  5. I've applied Get, Post, Put and Delete methods that works.
+  6. Applied filters for optimization.
