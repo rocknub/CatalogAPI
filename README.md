@@ -7,5 +7,5 @@ In this API I've used:
   5. I've applied Get, Post, Put and Delete methods that works.
   6. Applied filters for optimization.
   7. If you want to use this project as example:
-    7.1 Go first to appsettings.json and add your MySQL server ip, database, root user and pwd.
-    7.2 Feel free to use it. :)
+  8. Go first to appsettings.json and add your MySQL server ip, database, root user and pwd.
+  9. Feel free to use it. :)
