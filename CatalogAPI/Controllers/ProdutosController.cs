@@ -32,6 +32,7 @@ namespace CatalogAPI.Controllers
         public ActionResult<Produto> Get(int id)
         {
             var produto = _context.Produtos.FirstOrDefault(p => p.ProdutoId == id);
+            
             if (produto is null)
             {
                 return NotFound("Produto não encontrado. Tente novamente.");
@@ -70,6 +71,8 @@ namespace CatalogAPI.Controllers
         public ActionResult Delete(int id)
         {
             var produto = _context.Produtos.FirstOrDefault(p => p.ProdutoId == id);
+            //var produto = _context.Produtos.Find(id); Vantagem de usar Find é primeiro localizar o produto na memoria mas o id precisa estar defenido.
+
             if (produto is null)
             {
                 return NotFound("Produto não encontrado. Tente novamente.");
