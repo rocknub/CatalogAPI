@@ -17,7 +17,7 @@ namespace CatalogAPI.Controllers
             _context = context;
         }
 
-        [HttpGet("get/listarTProdutos")]
+        [HttpGet("get/listarTP")]
         public ActionResult<IEnumerable<Produto>> GetOptimized()
         {
             try
@@ -33,7 +33,7 @@ namespace CatalogAPI.Controllers
             //AsNoTracking() apenas para consultar que apenas leem sem alterar os dados - logo menos consumo na memoria.
         }
 
-        [HttpGet("get/listarProduto/qualQuantidade/{filtroQuantidade:int}")]
+        [HttpGet("get/listarP/quantidade/{filtroQuantidade:int}")]
         public ActionResult<IEnumerable<Produto>> GetFilter(int filtroQuantidade)
         {
             if (filtroQuantidade is int)
@@ -52,7 +52,7 @@ namespace CatalogAPI.Controllers
             }
         }
 
-        [HttpGet("get/listarProduto/produtoEspecifico/{id:int}", Name="ObterProduto")]
+        [HttpGet("get/listarPperId//{id:int}", Name="ObterProduto")]
         public ActionResult<Produto> Get(int id)
         {
             var produto = _context.Produtos.FirstOrDefault(p => p.ProdutoId == id);

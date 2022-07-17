@@ -17,7 +17,7 @@ namespace CatalogAPI.Controllers
             _context = context;
         }
 
-        [HttpGet("get/listarTodasCategoriasEProdutos/{filtroQuantidade:int}")]
+        [HttpGet("get/listarTCP/{filtroQuantidade:int}")]
         public ActionResult<IEnumerable<Categoria>> GetCategoriasProdutos(int filtroQuantidade)
         {
             //return _context.Categorias.Include(p => p.Produtos).ToList();
@@ -25,7 +25,7 @@ namespace CatalogAPI.Controllers
         }
 
 
-        [HttpGet("get/listarTodasAsCategorias/")]
+        [HttpGet("get/listarTC/")]
         public ActionResult<IEnumerable<Categoria>> GetOptimized()
         {
             try
@@ -41,7 +41,7 @@ namespace CatalogAPI.Controllers
             //AsNoTracking() apenas para consultar que apenas leem sem alterar os dados - logo menos consumo na memoria.
         }
 
-        [HttpGet("get/listarCategoriaEspecifica/{id:int}", Name="ObterCategoria")]
+        [HttpGet("get/listarCperId/{id:int}", Name="ObterCategoria")]
         public ActionResult<Categoria> Get(int id)
         {
             var categoria = _context.Categorias.FirstOrDefault(c => c.CategoriaId == id);
